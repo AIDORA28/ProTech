@@ -28,6 +28,32 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# ===================================
+# ARCHIVOS TEMPORALES DESARROLLO
+# ===================================
+# Evitar archivos SQL temporales
+*-temp.sql
+*-backup.sql
+*-old.sql
+*_old.*
+*_backup.*
+*_temp.*
+
+# Evitar archivos MD temporales de progreso
+PROGRESO-*.md
+*-PROGRESO.md
+progreso-*.md
+
+# Evitar archivos de componentes experimentales
+*-experimental.*
+*-test.*
+*-draft.*
+
+# Evitar archivos de configuración temporal
+*.config.temp.*
+*.env.backup
+*.env.old
 .pnpm-debug.log*
 
 # env files (can opt-in for committing if needed)
