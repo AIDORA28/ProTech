@@ -1,54 +1,11 @@
 import Link from "next/link";
 import { ArrowLeft, Star, ShoppingCart, Heart, Share2 } from "lucide-react";
 import Image from "next/image";
+import { getProductById } from "@/lib/mockData";
 
-// This would normally fetch from a database using the params
+// Función para obtener el producto por ID
 async function getProduct(id: string) {
-  // Mock product data
-  const products = [
-    {
-      id: "1",
-      name: "Laptop Gaming ROG",
-      description:
-        "Laptop gaming de alto rendimiento con procesador Intel i7, 16GB RAM, RTX 4060, 512GB SSD. Perfecta para gaming y trabajo profesional.",
-      price: 1299.99,
-      image_url: "/img/Categorias/Laptop/Laptop/IDEAPAD SLIM 3 15AMN8.jpeg",
-      category: "Laptops",
-      stock: 5,
-      featured: true,
-      created_at: "2024-01-01",
-      updated_at: "2024-01-01",
-    },
-    {
-      id: "2",
-      name: "Monitor LG 27 4K",
-      description:
-        "Monitor 4K de 27 pulgadas con tecnología IPS, ideal para profesionales del diseño y gaming. Colores vibrantes y alta precisión.",
-      price: 399.99,
-      image_url: "/img/Categorias/Pantalla/Pantallas/LG.jpeg",
-      category: "Monitores",
-      stock: 8,
-      featured: true,
-      created_at: "2024-01-01",
-      updated_at: "2024-01-01",
-    },
-    {
-      id: "3",
-      name: "Fuente de Poder 650W",
-      description:
-        "Fuente de poder modular 80+ Gold de 650W, altamente eficiente y confiable para sistemas gaming y workstations.",
-      price: 89.99,
-      image_url:
-        "/img/Categorias/Componentes/Fuente de Poder/Fuente de Poder G650w.jpeg",
-      category: "Componentes",
-      stock: 12,
-      featured: true,
-      created_at: "2024-01-01",
-      updated_at: "2024-01-01",
-    },
-  ];
-
-  return products.find((p) => p.id === id) || null;
+  return getProductById(id);
 }
 
 export default async function ProductDetailPage({
@@ -119,13 +76,13 @@ export default async function ProductDetailPage({
         <div className="bg-white rounded-lg shadow-sm overflow-hidden">
           <div className="lg:grid lg:grid-cols-2 lg:gap-x-8">
             {/* Product image */}
-            <div className="aspect-w-1 aspect-h-1 bg-gray-200 lg:aspect-none lg:h-96">
+            <div className="relative h-96 bg-gray-200 overflow-hidden">
               <Image
                 src={product.image_url || "/img/placeholder-producto.jpg"}
                 alt={product.name}
-                width={600}
-                height={400}
-                className="w-full h-full object-center object-cover lg:w-full lg:h-full"
+                fill
+                className="object-cover object-center"
+                sizes="(max-width: 1024px) 100vw, 50vw"
               />
             </div>
 
@@ -171,7 +128,7 @@ export default async function ProductDetailPage({
               {/* Price */}
               <div className="mb-6">
                 <p className="text-3xl font-bold text-gray-900">
-                  ${product.price.toFixed(2)}
+                  Q{product.price}
                 </p>
               </div>
 
@@ -225,9 +182,9 @@ export default async function ProductDetailPage({
               <div className="mt-8 pt-8 border-t border-gray-200">
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div>
-                    <p className="font-medium text-gray-900">Envío gratis</p>
+                    <p className="font-medium text-gray-900">Envío gratis</p>{" "}
                     <p className="text-gray-600">
-                      En compras superiores a $100
+                      En compras superiores a Q300
                     </p>
                   </div>
                   <div>

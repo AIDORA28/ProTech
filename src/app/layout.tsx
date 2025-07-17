@@ -8,9 +8,12 @@ import { Footer } from "@/components";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "TechPro V2 - Tu Tienda de Tecnología",
+  title: "TechPro - Tu Tienda de Tecnología",
   description:
-    "Descubre los últimos productos tecnológicos en TechPro V2. Smartphones, laptops, tablets y más con la mejor calidad y precios.",
+    "Descubre los últimos productos tecnológicos en TechPro. Laptops, monitores, componentes y periféricos con la mejor calidad y precios.",
+  icons: {
+    icon: "/img/Logos/LOGO.ico",
+  },
 };
 
 export default function RootLayout({

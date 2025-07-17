@@ -1,50 +1,18 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Star, ShoppingCart, Clock, Flame } from "lucide-react";
+import { getFeaturedProducts } from "@/lib/mockData";
 
-// Mock offers data
-const offers = [
-  {
-    id: 1,
-    name: "Laptop Gaming ROG",
-    price: 1299.99,
-    originalPrice: 1599.99,
-    discount: 19,
-    rating: 4.8,
-    reviews: 127,
-    image: "/img/Categorias/Laptop/Laptop/IDEAPAD SLIM 3 15AMN8.jpeg",
-    category: "Laptops",
-    timeLeft: "2 días",
-    badge: "🔥 Oferta Flash",
-  },
-  {
-    id: 2,
-    name: 'Monitor 4K 27"',
-    price: 399.99,
-    originalPrice: 549.99,
-    discount: 27,
-    rating: 4.6,
-    reviews: 89,
-    image: "/img/Categorias/Pantalla/Pantallas/LG.jpeg",
-    category: "Monitores",
-    timeLeft: "5 días",
-    badge: "💎 Súper Oferta",
-  },
-  {
-    id: 3,
-    name: "Fuente de Poder 650W",
-    price: 89.99,
-    originalPrice: 129.99,
-    discount: 31,
-    rating: 4.7,
-    reviews: 243,
-    image:
-      "/img/Categorias/Componentes/Fuente de Poder/Fuente de Poder G650w.jpeg",
-    category: "Componentes",
-    timeLeft: "1 día",
-    badge: "⚡ Liquidación",
-  },
-];
+// Productos en oferta (tomamos los productos destacados como ofertas para la demo)
+const offers = getFeaturedProducts().map((product) => ({
+  ...product,
+  originalPrice: Math.round(product.price * 1.3), // Simular precio original 30% más alto
+  discount: 30,
+  timeLeft: ["2 días", "5 días", "1 día"][Math.floor(Math.random() * 3)],
+  badge: ["🔥 Oferta Flash", "💎 Súper Oferta", "⚡ Liquidación"][
+    Math.floor(Math.random() * 3)
+  ],
+}));
 
 const categories = [
   { name: "Gaming", count: 15, discount: "hasta 40%" },
@@ -57,24 +25,37 @@ export default function OffersPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-red-600 to-orange-600 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="text-center">
-            <div className="flex items-center justify-center mb-4">
-              <Flame className="w-8 h-8 mr-2" />
-              <h1 className="text-4xl md:text-5xl font-bold">
-                Ofertas Especiales
+      <section className="relative bg-gradient-to-br from-red-600 via-orange-600 to-pink-700 text-white overflow-hidden">
+        <div className="absolute inset-0 bg-black opacity-20"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-red-600/30 to-orange-600/30"></div>
+
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+          <div className="text-center max-w-4xl mx-auto">
+            <div className="flex items-center justify-center mb-6">
+              <Flame className="w-10 h-10 mr-3 text-orange-300 animate-pulse" />
+              <h1 className="text-4xl md:text-6xl font-bold leading-tight">
+                Ofertas
+                <span className="block text-orange-300">Especiales</span>
               </h1>
-              <Flame className="w-8 h-8 ml-2" />
+              <Flame className="w-10 h-10 ml-3 text-orange-300 animate-pulse" />
             </div>
-            <p className="text-xl md:text-2xl mb-8 text-orange-100">
+            <p className="text-xl md:text-2xl mb-8 text-gray-200">
               Aprovecha descuentos de hasta 50% en productos seleccionados
             </p>
-            <div className="bg-white text-red-600 inline-block px-6 py-2 rounded-full font-semibold">
-              ⏰ Tiempo limitado - ¡No te lo pierdas!
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
+              <div className="bg-white/20 backdrop-blur-sm text-white px-6 py-3 rounded-xl font-bold text-lg border border-white/30">
+                ⏰ Tiempo limitado - ¡No te lo pierdas!
+              </div>
             </div>
           </div>
         </div>
+
+        {/* Floating elements */}
+        <div className="absolute top-20 left-10 w-20 h-20 bg-white/10 rounded-full animate-pulse"></div>
+        <div className="absolute bottom-20 right-10 w-16 h-16 bg-orange-400/20 rounded-full animate-bounce"></div>
+        <div className="absolute top-1/2 left-20 w-12 h-12 bg-red-400/20 rounded-full animate-ping"></div>
+        <div className="absolute top-40 right-20 w-14 h-14 bg-pink-400/15 rounded-full animate-pulse"></div>
+        <div className="absolute bottom-40 left-1/4 w-8 h-8 bg-yellow-400/20 rounded-full animate-bounce"></div>
       </section>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -141,13 +122,15 @@ export default function OffersPage() {
                   </div>
                 </div>
 
-                <div className="relative">
+                <div className="aspect-w-16 aspect-h-12 bg-gray-200 relative overflow-hidden">
                   <Image
-                    src={offer.image}
+                    src={
+                      offer.image_url || "/img/Categorias/Categoria-Defecto.jpg"
+                    }
                     alt={offer.name}
                     width={300}
                     height={200}
-                    className="w-full h-48 object-cover"
+                    className="w-full h-full object-cover object-center"
                   />
                 </div>
 
@@ -160,7 +143,8 @@ export default function OffersPage() {
 
                   <div className="flex items-center gap-2 mb-2">
                     <span className="text-sm text-gray-500">
-                      {offer.category}
+                      {offer.category.charAt(0).toUpperCase() +
+                        offer.category.slice(1)}
                     </span>
                   </div>
 
@@ -194,23 +178,26 @@ export default function OffersPage() {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <span className="text-2xl font-bold text-red-600">
-                        ${offer.price.toFixed(2)}
+                        Q{offer.price}
                       </span>
                       <span className="text-lg text-gray-500 line-through">
-                        ${offer.originalPrice.toFixed(2)}
+                        Q{offer.originalPrice}
                       </span>
                     </div>
 
-                    <button className="bg-red-600 text-white p-2 rounded-lg hover:bg-red-700 transition-colors">
+                    <Link
+                      href={`/productos/${offer.id}`}
+                      className="bg-red-600 text-white p-2 rounded-lg hover:bg-red-700 transition-colors"
+                    >
                       <ShoppingCart className="w-5 h-5" />
-                    </button>
+                    </Link>
                   </div>
 
                   <div className="mt-4 text-center">
                     <div className="text-sm text-gray-600">
                       Ahorro:{" "}
                       <span className="font-bold text-green-600">
-                        ${(offer.originalPrice - offer.price).toFixed(2)}
+                        Q{offer.originalPrice - offer.price}
                       </span>
                     </div>
                   </div>
@@ -221,27 +208,93 @@ export default function OffersPage() {
         </section>
 
         {/* Newsletter for Offers */}
-        <section className="bg-gradient-to-r from-red-600 to-orange-600 rounded-xl text-white p-8 text-center">
-          <h2 className="text-2xl font-bold mb-4">
-            🚨 No te pierdas nuestras ofertas exclusivas
-          </h2>
-          <p className="text-orange-100 mb-6">
-            Sé el primero en enterarte de nuestras ofertas flash y descuentos
-            especiales
-          </p>
-          <div className="max-w-md mx-auto flex gap-4">
-            <input
-              type="email"
-              placeholder="Tu email para ofertas"
-              className="flex-1 px-4 py-3 rounded-lg text-gray-900"
-            />
-            <button className="bg-white text-red-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
-              Suscribirse
-            </button>
+        <section className="relative overflow-hidden bg-gradient-to-r from-red-400 to-orange-400 rounded-3xl text-white p-12 text-center shadow-2xl">
+          {/* Background Pattern */}
+          <div className="absolute inset-0 bg-red-700 bg-opacity-5">
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-orange-100 to-transparent opacity-10 transform -skew-y-12"></div>
           </div>
-          <p className="text-sm text-orange-200 mt-4">
-            * Ofertas exclusivas y descuentos de hasta 60%
-          </p>
+
+          {/* Content */}
+          <div className="relative z-10">
+            <div className="max-w-4xl mx-auto">
+              <div className="flex items-center justify-center mb-6">
+                <div className="bg-white bg-opacity-20 rounded-full p-4 mr-4">
+                  <span className="text-4xl">🚨</span>
+                </div>
+                <h2 className="text-4xl md:text-5xl font-bold">
+                  Ofertas Exclusivas
+                </h2>
+                <div className="bg-white bg-opacity-20 rounded-full p-4 ml-4">
+                  <span className="text-4xl">🔥</span>
+                </div>
+              </div>
+
+              <p className="text-xl md:text-2xl mb-8 text-orange-100 leading-relaxed">
+                Sé el primero en enterarte de nuestras
+                <span className="font-bold text-yellow-200">
+                  {" "}
+                  ofertas flash
+                </span>{" "}
+                y
+                <span className="font-bold text-yellow-200">
+                  {" "}
+                  descuentos especiales
+                </span>
+              </p>
+
+              <div className="bg-white bg-opacity-15 backdrop-blur-sm rounded-2xl p-8 mb-6 border border-white border-opacity-20">
+                <div className="max-w-lg mx-auto">
+                  <div className="flex flex-col sm:flex-row gap-4">
+                    <div className="flex-1">
+                      <input
+                        type="email"
+                        placeholder="Tu email para ofertas exclusivas"
+                        className="w-full px-6 py-4 rounded-xl text-gray-800 placeholder-gray-500 text-lg font-medium border-2 border-transparent focus:border-yellow-300 focus:outline-none transition-all duration-300 shadow-lg"
+                      />
+                    </div>
+                    <button className="bg-gradient-to-r from-yellow-400 to-yellow-500 text-red-700 px-8 py-4 rounded-xl font-bold text-lg hover:from-yellow-300 hover:to-yellow-400 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl">
+                      Suscribirse
+                      <span className="ml-2">→</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
+                <div className="flex items-center justify-center">
+                  <div className="bg-green-400 rounded-full p-2 mr-3 shadow-lg">
+                    <span className="text-white font-bold">✓</span>
+                  </div>
+                  <span className="text-orange-100">
+                    Ofertas exclusivas hasta 60% OFF
+                  </span>
+                </div>
+                <div className="flex items-center justify-center">
+                  <div className="bg-blue-400 rounded-full p-2 mr-3 shadow-lg">
+                    <span className="text-white font-bold">⚡</span>
+                  </div>
+                  <span className="text-orange-100">
+                    Acceso prioritario a liquidaciones
+                  </span>
+                </div>
+                <div className="flex items-center justify-center">
+                  <div className="bg-purple-400 rounded-full p-2 mr-3 shadow-lg">
+                    <span className="text-white font-bold">🎁</span>
+                  </div>
+                  <span className="text-orange-100">
+                    Regalos y promociones especiales
+                  </span>
+                </div>
+              </div>
+
+              <p className="text-xs text-orange-200 mt-6 opacity-90">
+                * Al suscribirte aceptas recibir emails promocionales. Puedes
+                cancelar en cualquier momento.
+                <br />
+                No compartimos tu información con terceros.
+              </p>
+            </div>
+          </div>
         </section>
       </div>
     </div>

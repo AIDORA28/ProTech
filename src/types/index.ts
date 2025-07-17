@@ -1,12 +1,14 @@
 export interface Product {
   id: string;
   name: string;
-  description: string | null;
+  description: string;
   price: number;
-  image_url: string | null;
+  image_url: string;
   category: string;
   stock: number;
   featured: boolean;
+  rating: number;
+  reviews: number;
   created_at: string;
   updated_at: string;
 }
@@ -34,14 +36,12 @@ export interface OrderItem {
   created_at: string;
 }
 
+// Categorías para la demo
 export const categories = [
-  "smartphones",
   "laptops",
-  "tablets",
-  "smartwatches",
-  "headphones",
-  "speakers",
-  "accessories",
+  "monitores",
+  "componentes",
+  "perifericos",
 ] as const;
 
 export type Category = (typeof categories)[number];

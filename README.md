@@ -1,52 +1,67 @@
 # TechPro V2 - E-commerce de Tecnología
 
-Una moderna tienda en línea de productos tecnológicos construida con Next.js, TypeScript, Tailwind CSS y Supabase.
+Una moderna tienda en línea de productos tecnológicos construida con Next.js, TypeScript, Tailwind CSS y datos estáticos de demostración.
 
 ## 🚀 Características
 
 - **Next.js 15** con App Router
 - **TypeScript** para type safety
 - **Tailwind CSS** para estilos modernos y responsivos
-- **Supabase** como base de datos y backend
+- **Datos estáticos** para demostración (sin base de datos externa)
 - **Carrito de compras** funcional con contexto global
 - **Diseño responsivo** optimizado para móviles y desktop
 - **Componentes reutilizables** y bien estructurados
+- **Páginas principales**: Inicio, Productos, Categorías, Ofertas, Contacto
 
 ## 🛠️ Tecnologías
 
 - [Next.js](https://nextjs.org/) - Framework de React
 - [TypeScript](https://www.typescriptlang.org/) - Tipado estático
 - [Tailwind CSS](https://tailwindcss.com/) - Framework de CSS
-- [Supabase](https://supabase.com/) - Base de datos y autenticación
 - [Lucide React](https://lucide.dev/) - Iconos
 
-## 📦 Instalación
+## � Inicio Rápido
 
-1. Clona el repositorio:
-
-```bash
-git clone <url-del-repositorio>
-cd v2
-```
-
-2. Instala las dependencias:
+### 1. Instalar dependencias
 
 ```bash
 npm install
 ```
 
-3. Configura las variables de entorno:
+### 2. Ejecutar el servidor de desarrollo
 
 ```bash
-cp .env.local.example .env.local
+npm run dev
 ```
 
-Edita `.env.local` con tus credenciales de Supabase:
+### 3. Abrir en el navegador
 
-```env
-NEXT_PUBLIC_SUPABASE_URL=https://azensanwwrtzezqcjgwy.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=tu_clave_anonima_aqui
+Abre **[http://localhost:3500](http://localhost:3500)** en tu navegador para ver la aplicación.
+
+## 📖 Comandos Disponibles
+
+```bash
+# Iniciar servidor de desarrollo
+npm run dev
+
+# Compilar para producción
+npm run build
+
+# Ejecutar en modo producción (después de build)
+npm start
+
+# Verificar errores de lint
+npm run lint
 ```
+
+## 🏠 Páginas Disponibles
+
+- **Inicio**: [http://localhost:3500](http://localhost:3500)
+- **Productos**: [http://localhost:3500/productos](http://localhost:3500/productos)
+- **Categorías**: [http://localhost:3500/categorias](http://localhost:3500/categorias)
+- **Ofertas**: [http://localhost:3500/ofertas](http://localhost:3500/ofertas)
+- **Contacto**: [http://localhost:3500/contacto](http://localhost:3500/contacto)
+- **Carrito**: [http://localhost:3500/carrito](http://localhost:3500/carrito)
 
 ## 🔧 Configuración de Supabase
 
@@ -147,22 +162,49 @@ git push -u origin main
 5. En **Environment Variables**, agrega:
    - `NEXT_PUBLIC_SUPABASE_URL`: https://azensanwwrtzezqcjgwy.supabase.co
    - `NEXT_PUBLIC_SUPABASE_ANON_KEY`: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF6ZW5zYW53d3J0emV6cWNqZ3d5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI1OTU5OTksImV4cCI6MjA2ODE3MTk5OX0.TNDgTRl3YZg-2hmd1bNy67nMtBJ-WBOh_hhh5KOzVZU
-6. Haz clic en **"Deploy"**
 
-4. Inicia el servidor de desarrollo:
+## 🖼️ Configuración de Imágenes
 
-```bash
-npm run dev
+Las imágenes ya están configuradas en la carpeta `public/img/`. Si ves errores de imágenes, asegúrate de que existan los siguientes archivos:
+
+```
+public/
+  img/
+    LOGO.png
+    placeholder-producto.jpg
+    Categorias/
+      Categoria-Defecto.jpg
+    Logos/
+      LOGO.png
+      LOGO.ico
 ```
 
-Abre [http://localhost:3500](http://localhost:3500) en tu navegador.
+## 📱 Características Implementadas
 
-### 🖼️ Configuración de Imágenes
-Si ves errores de imágenes, ejecuta:
-```bash
-# Copiar imágenes a la carpeta public
-cp -r img/* public/img/
-```
+### ✅ Páginas Funcionales
+
+- **Página de Inicio**: Hero section, productos destacados, categorías
+- **Catálogo de Productos**: Filtros, búsqueda, ordenamiento
+- **Página de Ofertas**: Productos en descuento, newsletter
+- **Página de Contacto**: Formulario, información de contacto
+- **Carrito de Compras**: Agregar/quitar productos, cálculo total
+
+### ✅ Funcionalidades
+
+- **Datos estáticos**: 12 productos de demostración
+- **Filtros**: Por categoría, precio, nombre
+- **Búsqueda**: En tiempo real por nombre y descripción
+- **Carrito**: Gestión completa de productos
+- **Responsive**: Optimizado para móviles y desktop
+- **Navegación**: Header y footer funcionales
+
+## 🗂️ Datos de Demostración
+
+El proyecto incluye datos estáticos para demostración en `src/lib/mockData.ts`:
+
+- **12 productos** distribuidos en 4 categorías
+- **Categorías**: Laptops, Monitores, Componentes, Periféricos
+- **Información completa**: Precios, descripciones, imágenes, ratings
 
 ## 🗂️ Estructura del Proyecto
 
@@ -316,6 +358,7 @@ Para que tu aplicación funcione correctamente, necesitas:
 Si al abrir la página ves "Internal Server Error", sigue estos pasos:
 
 ### ✅ Solución Rápida (1 minuto)
+
 ```bash
 # Ejecutar script automático
 ./fix-issues.sh
@@ -325,6 +368,7 @@ npm run dev
 ```
 
 ### 🔧 Solución Manual
+
 ```bash
 # 1. Copiar imágenes a public
 cp -r img/* public/img/
@@ -340,17 +384,20 @@ npm run dev
 ```
 
 ### 📍 Verificar que Todo Funciona
+
 1. Ve a: http://localhost:3500
 2. Si aún hay errores, ve a: http://localhost:3500/test
 3. Revisa la consola del navegador para más detalles
 
 ### 🔍 Causas Comunes del Error
+
 - ❌ **Imágenes faltantes**: Las imágenes están en `img/` pero la app las busca en `public/img/`
 - ❌ **Variables de entorno**: Falta el archivo `.env.local`
 - ❌ **Puerto ocupado**: Otro proceso usa el puerto 3500
 - ❌ **Caché corrupto**: La carpeta `.next` tiene problemas
 
 ### 🚨 Si Persiste el Error
+
 ```bash
 # Verificar qué está usando el puerto 3500
 sudo lsof -i :3500
