@@ -1,4 +1,4 @@
-import { Mail, Phone, MapPin, Clock } from "lucide-react";
+import { Mail, Phone, MapPin, Clock, MessageCircle } from "lucide-react";
 
 export default function ContactPage() {
   return (
@@ -84,6 +84,27 @@ export default function ContactPage() {
                   <div className="flex items-start space-x-6 p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl border border-gray-100">
                     <div className="flex-shrink-0">
                       <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-green-300 transition-all duration-300">
+                        <MessageCircle className="w-8 h-8 text-white" />
+                      </div>
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-xl text-gray-900 mb-1">
+                        WhatsApp
+                      </h3>
+                      <p className="text-lg text-green-600 font-semibold">
+                        +502 2345-6789
+                      </p>
+                      <p className="text-sm text-gray-500 mt-1">
+                        Respuesta inmediata • 24/7
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="group hover:scale-105 transition-all duration-300">
+                  <div className="flex items-start space-x-6 p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl border border-gray-100">
+                    <div className="flex-shrink-0">
+                      <div className="w-16 h-16 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-red-300 transition-all duration-300">
                         <MapPin className="w-8 h-8 text-white" />
                       </div>
                     </div>
@@ -411,15 +432,26 @@ export default function ContactPage() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
                 href="tel:+50223456789"
-                className="bg-white text-blue-600 font-bold py-3 px-8 rounded-xl hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-lg"
+                className="bg-white text-blue-600 font-bold py-3 px-8 rounded-xl hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center justify-center space-x-2"
               >
-                Llamar Ahora
+                <Phone className="w-5 h-5" />
+                <span>Llamar Ahora</span>
+              </a>
+              <a
+                href="https://wa.me/50223456789?text=Hola%2C%20me%20interesa%20obtener%20más%20información%20sobre%20sus%20productos%20y%20servicios%20de%20TechPro."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center justify-center space-x-2"
+              >
+                <MessageCircle className="w-5 h-5" />
+                <span>Escríbenos por WhatsApp</span>
               </a>
               <a
                 href="mailto:contacto@techpro.gt"
-                className="bg-transparent border-2 border-white text-white font-bold py-3 px-8 rounded-xl hover:bg-white hover:text-blue-600 transition-all duration-300 transform hover:scale-105"
+                className="bg-transparent border-2 border-white text-white font-bold py-3 px-8 rounded-xl hover:bg-white hover:text-blue-600 transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-2"
               >
-                Enviar Email
+                <Mail className="w-5 h-5" />
+                <span>Enviar Email</span>
               </a>
             </div>
           </div>

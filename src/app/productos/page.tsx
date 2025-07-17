@@ -5,7 +5,11 @@ import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { Search, ShoppingCart, Grid, List, Star } from "lucide-react";
-import { getProducts, getProductsByCategory } from "@/lib/mockData";
+import {
+  getProducts,
+  getProductsByCategory,
+  formatMultiCurrencyPrice,
+} from "@/lib/mockData";
 import { categories } from "@/types";
 
 function ProductsContent() {
@@ -295,14 +299,23 @@ function ProductsContent() {
                         viewMode === "list" ? "flex-wrap gap-2" : ""
                       }`}
                     >
-                      <div>
-                        <span
-                          className={`font-bold text-gray-900 ${
-                            viewMode === "list" ? "text-xl" : "text-2xl"
-                          }`}
-                        >
-                          Q{product.price}
-                        </span>
+                      <div className="flex flex-col gap-1">
+                        <div className="flex items-center gap-2">
+                          <span
+                            className={`font-bold text-blue-600 ${
+                              viewMode === "list" ? "text-xl" : "text-2xl"
+                            }`}
+                          >
+                            {formatMultiCurrencyPrice(product.price).usd}
+                          </span>
+                          <span
+                            className={`text-orange-600 font-semibold ${
+                              viewMode === "list" ? "text-lg" : "text-xl"
+                            }`}
+                          >
+                            {formatMultiCurrencyPrice(product.price).pen}
+                          </span>
+                        </div>
                       </div>
                       <div
                         className={`text-sm ${

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Star, ShoppingCart, Clock, Flame } from "lucide-react";
-import { getFeaturedProducts } from "@/lib/mockData";
+import { getFeaturedProducts, formatMultiCurrencyPrice } from "@/lib/mockData";
 
 // Productos en oferta (tomamos los productos destacados como ofertas para la demo)
 const offers = getFeaturedProducts().map((product) => ({
@@ -176,13 +176,22 @@ export default function OffersPage() {
                   </div>
 
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <span className="text-2xl font-bold text-red-600">
-                        Q{offer.price}
-                      </span>
-                      <span className="text-lg text-gray-500 line-through">
-                        Q{offer.originalPrice}
-                      </span>
+                    <div className="flex flex-col gap-1">
+                      <div className="flex items-center gap-2">
+                        <span className="text-2xl font-bold text-blue-600">
+                          {formatMultiCurrencyPrice(offer.price).usd}
+                        </span>
+                        <span className="text-xl font-semibold text-orange-600">
+                          {formatMultiCurrencyPrice(offer.price).pen}
+                        </span>
+                      </div>
+                      <div className="text-sm text-gray-500">
+                        <span className="line-through">
+                          Precio original:{" "}
+                          {formatMultiCurrencyPrice(offer.originalPrice).usd} •{" "}
+                          {formatMultiCurrencyPrice(offer.originalPrice).pen}
+                        </span>
+                      </div>
                     </div>
 
                     <Link
@@ -197,7 +206,17 @@ export default function OffersPage() {
                     <div className="text-sm text-gray-600">
                       Ahorro:{" "}
                       <span className="font-bold text-green-600">
-                        Q{offer.originalPrice - offer.price}
+                        {
+                          formatMultiCurrencyPrice(
+                            offer.originalPrice - offer.price
+                          ).usd
+                        }{" "}
+                        •{" "}
+                        {
+                          formatMultiCurrencyPrice(
+                            offer.originalPrice - offer.price
+                          ).pen
+                        }
                       </span>
                     </div>
                   </div>

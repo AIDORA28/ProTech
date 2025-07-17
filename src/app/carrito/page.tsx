@@ -1,6 +1,7 @@
 "use client";
 
 import { useCart } from "@/context/CartContext";
+import { formatMultiCurrencyPrice } from "@/lib/mockData";
 import Image from "next/image";
 import Link from "next/link";
 import { Minus, Plus, Trash2, ShoppingBag } from "lucide-react";
@@ -108,9 +109,16 @@ export default function CartPage() {
                       <p className="text-sm text-gray-500">
                         {item.product.category}
                       </p>
-                      <p className="text-lg font-bold text-gray-900 mt-1">
-                        ${item.product.price}
-                      </p>
+                      <div className="mt-1">
+                        <div className="flex items-center gap-2">
+                          <p className="text-lg font-bold text-blue-600">
+                            {formatMultiCurrencyPrice(item.product.price).usd}
+                          </p>
+                          <p className="text-lg font-semibold text-orange-600">
+                            {formatMultiCurrencyPrice(item.product.price).pen}
+                          </p>
+                        </div>
+                      </div>
                     </div>
 
                     <div className="flex items-center space-x-3">
@@ -138,9 +146,24 @@ export default function CartPage() {
                     </div>
 
                     <div className="text-right">
-                      <p className="text-lg font-bold text-gray-900">
-                        ${(item.product.price * item.quantity).toFixed(2)}
-                      </p>
+                      <div className="flex flex-col items-end gap-1">
+                        <div className="flex items-center gap-2">
+                          <p className="text-lg font-bold text-blue-600">
+                            {
+                              formatMultiCurrencyPrice(
+                                item.product.price * item.quantity
+                              ).usd
+                            }
+                          </p>
+                          <p className="text-lg font-semibold text-orange-600">
+                            {
+                              formatMultiCurrencyPrice(
+                                item.product.price * item.quantity
+                              ).pen
+                            }
+                          </p>
+                        </div>
+                      </div>
                       <button
                         onClick={() => removeItem(item.product.id)}
                         className="text-red-600 hover:text-red-800 mt-1"
@@ -173,19 +196,41 @@ export default function CartPage() {
               <div className="space-y-3">
                 <div className="flex justify-between">
                   <span className="text-gray-600">Subtotal</span>
-                  <span className="font-semibold">${subtotal.toFixed(2)}</span>
+                  <div className="text-right">
+                    <div className="flex items-center gap-2">
+                      <div className="font-semibold text-blue-600">
+                        {formatMultiCurrencyPrice(subtotal).usd}
+                      </div>
+                      <div className="font-semibold text-orange-600">
+                        {formatMultiCurrencyPrice(subtotal).pen}
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
                 <div className="flex justify-between">
                   <span className="text-gray-600">Envío</span>
-                  <span className="font-semibold">
-                    {shipping === 0 ? "Gratis" : `$${shipping.toFixed(2)}`}
-                  </span>
+                  <div className="text-right">
+                    {shipping === 0 ? (
+                      <div className="font-semibold">Gratis</div>
+                    ) : (
+                      <div className="flex items-center gap-2">
+                        <div className="font-semibold text-blue-600">
+                          {formatMultiCurrencyPrice(shipping).usd}
+                        </div>
+                        <div className="font-semibold text-orange-600">
+                          {formatMultiCurrencyPrice(shipping).pen}
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </div>
 
                 {subtotal < 100 && (
                   <p className="text-sm text-gray-500">
-                    Envío gratis en compras superiores a $100
+                    Envío gratis en compras superiores a{" "}
+                    {formatMultiCurrencyPrice(780).usd} (
+                    {formatMultiCurrencyPrice(780).pen})
                   </p>
                 )}
 
@@ -194,9 +239,16 @@ export default function CartPage() {
                     <span className="text-lg font-semibold text-gray-900">
                       Total
                     </span>
-                    <span className="text-lg font-bold text-gray-900">
-                      ${total.toFixed(2)}
-                    </span>
+                    <div className="text-right">
+                      <div className="flex items-center gap-2">
+                        <div className="text-lg font-bold text-blue-600">
+                          {formatMultiCurrencyPrice(total).usd}
+                        </div>
+                        <div className="text-lg font-bold text-orange-600">
+                          {formatMultiCurrencyPrice(total).pen}
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

@@ -8,7 +8,7 @@ import {
   Laptop,
   Monitor,
 } from "lucide-react";
-import { getFeaturedProducts } from "@/lib/mockData";
+import { getFeaturedProducts, formatMultiCurrencyPrice } from "@/lib/mockData";
 
 // Obtener productos destacados
 const featuredProducts = getFeaturedProducts();
@@ -174,10 +174,15 @@ export default function Home() {
                   </div>
 
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <span className="text-2xl font-bold text-gray-900">
-                        Q{product.price}
-                      </span>
+                    <div className="flex flex-col gap-1">
+                      <div className="flex items-center gap-2">
+                        <span className="text-2xl font-bold text-blue-600">
+                          {formatMultiCurrencyPrice(product.price).usd}
+                        </span>
+                        <span className="text-xl font-semibold text-orange-600">
+                          {formatMultiCurrencyPrice(product.price).pen}
+                        </span>
+                      </div>
                     </div>
 
                     <Link

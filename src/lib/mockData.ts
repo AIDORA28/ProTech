@@ -228,3 +228,33 @@ export function searchProducts(searchTerm: string): Product[] {
       product.category.toLowerCase().includes(term)
   );
 }
+
+// Tasas de cambio aproximadas (actualizadas a julio 2025)
+const EXCHANGE_RATES = {
+  GTQ_TO_USD: 0.128, // 1 GTQ = 0.128 USD (aproximadamente 7.8 GTQ por USD)
+  GTQ_TO_PEN: 0.48, // 1 GTQ = 0.48 PEN (aproximadamente 2.08 GTQ por PEN)
+};
+
+// Función para convertir de Quetzales a Dólares
+export function convertToUSD(priceInGTQ: number): number {
+  return Math.round(priceInGTQ * EXCHANGE_RATES.GTQ_TO_USD * 100) / 100;
+}
+
+// Función para convertir de Quetzales a Soles Peruanos
+export function convertToPEN(priceInGTQ: number): number {
+  return Math.round(priceInGTQ * EXCHANGE_RATES.GTQ_TO_PEN * 100) / 100;
+}
+
+// Función para formatear precios con múltiples monedas
+export function formatMultiCurrencyPrice(priceInGTQ: number): {
+  usd: string;
+  pen: string;
+} {
+  const usdPrice = convertToUSD(priceInGTQ);
+  const penPrice = convertToPEN(priceInGTQ);
+
+  return {
+    usd: `$${usdPrice.toLocaleString()}`,
+    pen: `S/ ${penPrice.toLocaleString()}`,
+  };
+}

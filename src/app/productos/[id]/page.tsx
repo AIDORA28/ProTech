@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowLeft, Star, ShoppingCart, Heart, Share2 } from "lucide-react";
 import Image from "next/image";
-import { getProductById } from "@/lib/mockData";
+import { getProductById, formatMultiCurrencyPrice } from "@/lib/mockData";
 
 // Función para obtener el producto por ID
 async function getProduct(id: string) {
@@ -127,9 +127,16 @@ export default async function ProductDetailPage({
 
               {/* Price */}
               <div className="mb-6">
-                <p className="text-3xl font-bold text-gray-900">
-                  Q{product.price}
-                </p>
+                <div className="flex flex-col gap-2">
+                  <div className="flex items-center gap-3">
+                    <p className="text-3xl font-bold text-blue-600">
+                      {formatMultiCurrencyPrice(product.price).usd}
+                    </p>
+                    <p className="text-2xl font-semibold text-orange-600">
+                      {formatMultiCurrencyPrice(product.price).pen}
+                    </p>
+                  </div>
+                </div>
               </div>
 
               {/* Description */}
